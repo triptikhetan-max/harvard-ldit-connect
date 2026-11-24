@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AlumniRouteImport } from './routes/alumni'
 import { Route as EventsRouteImport } from './routes/events'
+import { Route as FindYourAlumRouteImport } from './routes/find-your-alum'
 import { Route as GuideRouteImport } from './routes/guide'
 import { Route as JobsRouteImport } from './routes/jobs'
 import { Route as PathwaysRouteImport } from './routes/pathways'
@@ -35,6 +36,11 @@ const AlumniRoute = AlumniRouteImport.update({
 const EventsRoute = EventsRouteImport.update({
   id: '/events',
   path: '/events',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FindYourAlumRoute = FindYourAlumRouteImport.update({
+  id: '/find-your-alum',
+  path: '/find-your-alum',
   getParentRoute: () => rootRouteImport,
 } as any)
 const GuideRoute = GuideRouteImport.update({
@@ -87,6 +93,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/alumni': typeof AlumniRouteWithChildren
   '/events': typeof EventsRoute
+  '/find-your-alum': typeof FindYourAlumRoute
   '/guide': typeof GuideRoute
   '/jobs': typeof JobsRoute
   '/pathways': typeof PathwaysRoute
@@ -100,6 +107,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/events': typeof EventsRoute
+  '/find-your-alum': typeof FindYourAlumRoute
   '/guide': typeof GuideRoute
   '/jobs': typeof JobsRoute
   '/pathways': typeof PathwaysRoute
@@ -115,6 +123,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/alumni': typeof AlumniRouteWithChildren
   '/events': typeof EventsRoute
+  '/find-your-alum': typeof FindYourAlumRoute
   '/guide': typeof GuideRoute
   '/jobs': typeof JobsRoute
   '/pathways': typeof PathwaysRoute
@@ -131,6 +140,7 @@ export interface FileRouteTypes {
     | '/'
     | '/alumni'
     | '/events'
+    | '/find-your-alum'
     | '/guide'
     | '/jobs'
     | '/pathways'
@@ -144,6 +154,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/events'
+    | '/find-your-alum'
     | '/guide'
     | '/jobs'
     | '/pathways'
@@ -158,6 +169,7 @@ export interface FileRouteTypes {
     | '/'
     | '/alumni'
     | '/events'
+    | '/find-your-alum'
     | '/guide'
     | '/jobs'
     | '/pathways'
@@ -173,6 +185,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AlumniRoute: typeof AlumniRouteWithChildren
   EventsRoute: typeof EventsRoute
+  FindYourAlumRoute: typeof FindYourAlumRoute
   GuideRoute: typeof GuideRoute
   JobsRoute: typeof JobsRoute
   PathwaysRoute: typeof PathwaysRoute
@@ -203,6 +216,13 @@ declare module '@tanstack/react-router' {
       path: '/events'
       fullPath: '/events'
       preLoaderRoute: typeof EventsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/find-your-alum': {
+      id: '/find-your-alum'
+      path: '/find-your-alum'
+      fullPath: '/find-your-alum'
+      preLoaderRoute: typeof FindYourAlumRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/guide': {
@@ -288,6 +308,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AlumniRoute: AlumniRouteWithChildren,
   EventsRoute: EventsRoute,
+  FindYourAlumRoute: FindYourAlumRoute,
   GuideRoute: GuideRoute,
   JobsRoute: JobsRoute,
   PathwaysRoute: PathwaysRoute,

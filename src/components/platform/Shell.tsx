@@ -6,6 +6,7 @@ import { useDemo } from "./DemoContext";
 const links = [
   ["/", "Home"],
   ["/alumni", "Alumni Directory"],
+  ["/find-your-alum", "Find Your Alum"],
   ["/jobs", "Jobs"],
   ["/events", "Events"],
   ["/guide", "Coffee Chat Guide"],

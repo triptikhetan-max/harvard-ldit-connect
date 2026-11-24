@@ -1,0 +1,283 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Find Your Alum</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600&family=Familjen+Grotesk:wght@400;500;600&display=swap">
+<style>
+/* Layout: one card in the middle of the screen, one step at a time, a 5-dot progress rail. The finished message is the payoff. */
+:root {
+  --paper: #eef1f4;
+  --sheet: #ffffff;
+  --ink: #16263a;
+  --muted: #5a6878;
+  --rule: #d3dae2;
+  --accent: #1f5f7a;
+  --accent-soft: #dcebf2;
+  --mark: #f2b632;
+  --warn-soft: #fbefd2;
+  --warn-ink: #6b4a00;
+  --f-display: "Newsreader", Georgia, "Times New Roman", serif;
+  --f-body: "Familjen Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0f1720; --sheet: #17222e; --ink: #e4eaf0; --muted: #94a3b2; --rule: #2a3a4a;
+    --accent: #7cc0dc; --accent-soft: #1d3442; --mark: #f2b632; --warn-soft: #3a2e12; --warn-ink: #f4d58a;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0f1720; --sheet: #17222e; --ink: #e4eaf0; --muted: #94a3b2; --rule: #2a3a4a;
+  --accent: #7cc0dc; --accent-soft: #1d3442; --mark: #f2b632; --warn-soft: #3a2e12; --warn-ink: #f4d58a;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--paper); color: var(--ink); font-family: var(--f-body); font-size: 16px; line-height: 1.5; }
+.wrap { max-width: 560px; margin: 0 auto; padding-block: 24px 56px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: grid; gap: 20px; }
+header { display: grid; gap: 8px; }
+.eyebrow { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+h1 { font-family: var(--f-display); font-weight: 600; font-size: 2.3rem; line-height: 1.1; margin: 0; text-wrap: balance; }
+h2 { font-family: var(--f-display); font-weight: 600; font-size: 1.5rem; line-height: 1.2; margin: 0; text-wrap: balance; }
+h3 { font-size: 1rem; font-weight: 600; margin: 0; }
+p { margin: 0; }
+.lede { color: var(--muted); }
+.rail { display: flex; gap: 6px; }
+.rail span { flex: 1; height: 4px; border-radius: 2px; background: var(--rule); }
+.rail span.on { background: var(--accent); }
+.sheet { background: var(--sheet); border: 1px solid var(--rule); border-radius: 14px; padding: 22px; display: grid; gap: 16px; min-width: 0; }
+.stepno { font-size: 13px; font-weight: 600; color: var(--accent); }
+.help { color: var(--muted); font-size: 15px; }
+input[type="text"], textarea { width: 100%; font: 17px var(--f-body); color: var(--ink); background: var(--paper); border: 1px solid var(--rule); border-radius: 10px; padding: 12px 14px; }
+textarea { resize: vertical; min-height: 80px; }
+textarea#msg { min-height: 220px; line-height: 1.5; }
+input:focus-visible, textarea:focus-visible, button:focus-visible, a:focus-visible { outline: 3px solid var(--mark); outline-offset: 2px; }
+.lead-in { font-family: var(--f-display); font-size: 1.15rem; }
+.chips { display: flex; gap: 8px; flex-wrap: wrap; }
+.chip { border: 1px solid var(--rule); background: transparent; color: var(--ink); font: 500 14px var(--f-body); padding: 8px 12px; border-radius: 999px; cursor: pointer; text-align: left; }
+.chip:hover { border-color: var(--accent); }
+.hint { background: var(--warn-soft); color: var(--warn-ink); border-radius: 8px; padding: 10px 12px; font-size: 14px; }
+.row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.btn { border: 1px solid var(--accent); background: var(--accent); color: var(--sheet); font: 600 16px var(--f-body); padding: 12px 18px; border-radius: 10px; cursor: pointer; text-decoration: none; display: inline-block; }
+.btn.ghost { background: transparent; color: var(--accent); }
+.btn:disabled { opacity: .45; cursor: not-allowed; }
+.query { font-size: 15px; background: var(--accent-soft); color: var(--accent); padding: 10px 12px; border-radius: 8px; overflow-wrap: anywhere; font-weight: 500; }
+.source { display: grid; gap: 10px; padding-top: 14px; border-top: 1px solid var(--rule); }
+.source:first-of-type { border-top: 0; padding-top: 0; }
+ol.tips, ul.tips { margin: 0; padding-left: 20px; display: grid; gap: 4px; font-size: 15px; color: var(--muted); }
+.tips b { color: var(--ink); font-weight: 600; }
+.mini { display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; font-size: 14px; padding: 12px; border-radius: 10px; background: var(--paper); }
+.mini dt { color: var(--muted); }
+.mini dd { margin: 0; overflow-wrap: anywhere; }
+.fields { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.fields label { display: grid; gap: 4px; font-size: 14px; font-weight: 600; min-width: 0; }
+.count { font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.count.over { color: var(--warn-ink); background: var(--warn-soft); padding: 2px 8px; border-radius: 6px; }
+.small { font-size: 13px; color: var(--muted); }
+footer { font-size: 13px; color: var(--muted); }
+@media (max-width: 480px) { h1 { font-size: 1.9rem; } .sheet { padding: 18px; } .fields { grid-template-columns: 1fr; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">For HGSE students · 3 minutes</div>
+    <h1>Find Your Alum</h1>
+    <p class="lede">Networking feels hard when you don't know who to talk to. Five short steps take you from "I should network" to one real person and a message you can send.</p>
+  </header>
+
+  <div class="rail" id="rail"><span></span><span></span><span></span><span></span><span></span></div>
+  <main id="stage"></main>
+
+  <footer>Made by an HGSE student for a class project (T522). Nothing you type leaves this page. It's only saved in your own browser so you can come back to it.</footer>
+</div>
+
+<script>
+(function () {
+  const ROLES = ["Learning designer", "Instructional designer", "Learning experience (LX) designer", "Product manager at an edtech company", "Learning engineer", "UX researcher in education", "Curriculum developer", "Learning & development manager", "Edtech founder"];
+  const WHYS = ["moved from ___ into this role", "work at ___, where I'd love to work", "are doing the exact role I'm curious about", "graduated from HGSE in the last few years", "work on ___, a problem I care about"];
+  const QUESTIONS = [
+    "What surprised you most in your first year in the role?",
+    "What skill from HGSE do you use most, and which one did you have to learn on the job?",
+    "What does a normal week look like for you?",
+    "If you were starting at HGSE again, what would you do differently to get into this field?",
+    "How did you land your first role after HGSE?"
+  ];
+  const FIELD_WORDS = ["edtech", "education", "tech", "design", "learning", "ai", "consulting", "nonprofit", "policy", "research"];
+  const DIRECTORY = "https://alumni.harvard.edu/hk-login?destination_url=https%3A%2F%2Fcommunity.alumni.harvard.edu%2FadvancedQuery";
+  const NOTE_LIMIT = 300; // LinkedIn connection-request note
+  const KEY = "find-your-alum";
+  const BLANK = { step: 1, role: "", person: "", why: "", question: "", me: "", program: "", msg: "", edited: false };
+  const s = load();
+
+  function load() { try { return Object.assign({}, BLANK, JSON.parse(localStorage.getItem(KEY) || "{}")); } catch { return Object.assign({}, BLANK); } }
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(s)); } catch {} }
+  const $ = (q) => document.querySelector(q);
+  const esc = (x) => String(x ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const go = (n) => { s.step = n; save(); render(); const f = $("#stage input, #stage textarea"); if (f) f.focus({ preventScroll: true }); };
+
+  function isField(role) {
+    const w = role.trim().toLowerCase();
+    return w && (FIELD_WORDS.includes(w) || (w.split(/\s+/).length === 1 && w.length < 12));
+  }
+  function linkedinUrl() {
+    return "https://www.linkedin.com/search/results/people/?keywords=" + encodeURIComponent('"Harvard Graduate School of Education" ' + s.role.trim());
+  }
+  function firstName(full) { return (full.trim().split(/\s+/)[0] || "there").replace(/^./, (c) => c.toUpperCase()); }
+  function lower(x) { return x.trim().replace(/^[A-Z](?=[a-z])/, (c) => c.toLowerCase()).replace(/[.\s]+$/, ""); }
+  function draft() {
+    const prog = s.program.trim() ? s.program.trim() + " student" : "student";
+    return "Hi " + firstName(s.person) + ",\n\n" +
+      "I'm " + (s.me.trim() || "[your name]") + ", an HGSE " + prog + " exploring " + lower(s.role) + " roles. I noticed you " + lower(s.why) + ".\n\n" +
+      "Could I ask you one question? " + s.question.trim() + "\n\n" +
+      "A short reply here would help a lot. Thank you!";
+  }
+
+  function render() {
+    document.querySelectorAll("#rail span").forEach((el, i) => el.classList.toggle("on", i < Math.min(s.step, 5)));
+    const v = [null, step1, step2, step3, step4, step5, done][s.step] || step1;
+    $("#stage").innerHTML = v();
+    bind[s.step] && bind[s.step]();
+  }
+
+  function step1() {
+    return '<section class="sheet">' +
+      '<div class="stepno">Step 1 of 5</div>' +
+      '<h2>Pick one role you\'re curious about</h2>' +
+      '<p class="help">Write a job title, not a field. "Learning designer at an edtech startup" works. "Edtech" is too broad to search.</p>' +
+      '<input type="text" id="role" autocomplete="off" placeholder="e.g. Learning designer at an edtech startup" value="' + esc(s.role) + '">' +
+      '<div id="role-hint"></div>' +
+      '<p class="small">Not sure? Tap one to start. You can change it later.</p>' +
+      '<div class="chips">' + ROLES.map((r) => '<button class="chip" data-role="' + esc(r) + '">' + esc(r) + "</button>").join("") + "</div>" +
+      '<div class="row"><button class="btn" id="next" disabled>Next</button></div></section>';
+  }
+  function step2() {
+    return '<section class="sheet">' +
+      '<div class="stepno">Step 2 of 5</div>' +
+      '<h2>Search for alums in that role</h2>' +
+      '<p class="help">Try both. The Harvard directory can show you who has said they\'re open to talking with students.</p>' +
+      '<div class="source"><h3>Harvard Alumni Directory</h3>' +
+        '<ul class="tips"><li>Log in with your HarvardKey, then open Directory Search.</li>' +
+        '<li><b>Harvard School:</b> Graduate School of Education</li>' +
+        '<li><b>Professional Information:</b> ' + esc(s.role) + '</li>' +
+        '<li><b>Mentoring Status:</b> open to networking. These people have said yes in advance.</li></ul>' +
+        '<div class="row"><a class="btn" href="' + DIRECTORY + '" target="_blank" rel="noopener">Open the directory</a></div></div>' +
+      '<div class="source"><h3>LinkedIn</h3>' +
+        '<div class="query">"Harvard Graduate School of Education" ' + esc(s.role) + "</div>" +
+        '<div class="row"><a class="btn ghost" href="' + esc(linkedinUrl()) + '" target="_blank" rel="noopener">Search LinkedIn</a></div>' +
+        '<p class="small">Check that "Harvard Graduate School of Education" is listed under each person\'s education.</p></div>' +
+      '<p class="help">Don\'t look for the perfect person. Anyone who looks interesting is enough.</p>' +
+      '<div class="row"><button class="btn" id="next">I found some people</button><button class="btn ghost" id="back">Back</button></div></section>';
+  }
+  function step3() {
+    return '<section class="sheet">' +
+      '<div class="stepno">Step 3 of 5</div>' +
+      '<h2>Choose one person</h2>' +
+      '<p class="help">Just one. You can always pick another later.</p>' +
+      '<input type="text" id="person" autocomplete="off" placeholder="Their name" value="' + esc(s.person) + '">' +
+      '<div class="row"><button class="btn" id="next" disabled>Next</button><button class="btn ghost" id="back">Back</button></div></section>';
+  }
+  function step4() {
+    return '<section class="sheet">' +
+      '<div class="stepno">Step 4 of 5</div>' +
+      '<h2>Why them?</h2>' +
+      '<p class="help">Finish the sentence with one thing from their path. Fill in any blanks. This becomes the line that shows you looked them up.</p>' +
+      '<p class="lead-in">I noticed you…</p>' +
+      '<div class="chips">' + WHYS.map((w) => '<button class="chip" data-why="' + esc(w) + '">' + esc(w) + "</button>").join("") + "</div>" +
+      '<textarea id="why" placeholder="e.g. moved from teaching 5th grade into course design at Coursera">' + esc(s.why) + "</textarea>" +
+      '<div id="why-hint"></div>' +
+      '<div class="row"><button class="btn" id="next" disabled>Next</button><button class="btn ghost" id="back">Back</button></div></section>';
+  }
+  function step5() {
+    return '<section class="sheet">' +
+      '<div class="stepno">Step 5 of 5</div>' +
+      '<h2>Ask one question</h2>' +
+      '<p class="help">Ask something only someone in their role could answer. Don\'t ask for a job or a referral in a first message. A clear, small question is much easier to say yes to.</p>' +
+      '<div class="chips">' + QUESTIONS.map((q) => '<button class="chip" data-q="' + esc(q) + '">' + esc(q) + "</button>").join("") + "</div>" +
+      '<textarea id="question" placeholder="Your one question">' + esc(s.question) + "</textarea>" +
+      '<div id="q-hint"></div>' +
+      '<div class="row"><button class="btn" id="next" disabled>Write my message</button><button class="btn ghost" id="back">Back</button></div></section>';
+  }
+  function done() {
+    if (!s.edited) s.msg = draft();
+    return '<section class="sheet">' +
+      '<div class="eyebrow">Your message to ' + esc(s.person) + '</div>' +
+      '<h2>Ready to send</h2>' +
+      '<div class="fields">' +
+        '<label for="me">Your name<input type="text" id="me" autocomplete="name" value="' + esc(s.me) + '"></label>' +
+        '<label for="program">Your program<input type="text" id="program" autocomplete="off" placeholder="e.g. LDIT" value="' + esc(s.program) + '"></label>' +
+      "</div>" +
+      '<textarea id="msg" aria-label="Your message">' + esc(s.msg) + "</textarea>" +
+      '<div class="row" style="justify-content:space-between"><span class="count" id="count"></span><button class="btn ghost" id="reset" style="padding:6px 12px;font-size:14px"' + (s.edited ? "" : " hidden") + '>Undo my edits</button></div>' +
+      '<div class="row"><button class="btn" id="copy">Copy message</button><span class="small" id="copy-msg"></span></div>' +
+      '<textarea id="copy-fallback" readonly hidden></textarea>' +
+      '<ul class="tips"><li>Send it as a LinkedIn message, or by email if the directory lists one.</li><li>Replies often take a few days. Wait a week before you decide it didn\'t work.</li></ul>' +
+      '<dl class="mini"><dt>Role</dt><dd>' + esc(s.role) + '</dd><dt>Alum</dt><dd>' + esc(s.person) + '</dd><dt>Question</dt><dd>' + esc(s.question) + "</dd></dl>" +
+      '<div class="row"><button class="btn ghost" id="back">Change the question</button><button class="btn ghost" id="again">Pick another person</button><button class="btn ghost" id="restart">Start over</button></div>' +
+      "</section>";
+  }
+
+  function textStep(id, key, min, nextStep, backStep, hint) {
+    const el = $("#" + id), next = $("#next");
+    const check = () => { next.disabled = s[key].trim().length < min; if (hint) hint(); };
+    el.addEventListener("input", () => { s[key] = el.value; s.edited = false; save(); check(); });
+    if (el.tagName === "INPUT") el.addEventListener("keydown", (e) => { if (e.key === "Enter" && !next.disabled) go(nextStep); });
+    next.addEventListener("click", () => go(nextStep));
+    if (backStep) $("#back").addEventListener("click", () => go(backStep));
+    check();
+    return { el, check };
+  }
+  function chips(attr, key, f) {
+    document.querySelectorAll("[data-" + attr + "]").forEach((b) => b.addEventListener("click", () => {
+      s[key] = b.getAttribute("data-" + attr); s.edited = false; f.el.value = s[key]; save(); f.check(); f.el.focus();
+      const i = s[key].indexOf("___"); if (i >= 0) f.el.setSelectionRange(i, i + 3);
+    }));
+  }
+  const blankHint = (key, id) => () => { $("#" + id).innerHTML = s[key].includes("___") ? '<div class="hint">Fill in the ___ with their real details.</div>' : ""; };
+
+  const bind = {
+    1() {
+      const f = textStep("role", "role", 3, 2, null, () => {
+        $("#role-hint").innerHTML = isField(s.role) ? '<div class="hint">That sounds like a field. Add a job title, like "learning designer in ' + esc(s.role.trim()) + '".</div>' : "";
+      });
+      chips("role", "role", f);
+    },
+    2() { $("#next").addEventListener("click", () => go(3)); $("#back").addEventListener("click", () => go(1)); },
+    3() { textStep("person", "person", 2, 4, 2); },
+    4() { const f = textStep("why", "why", 5, 5, 3, blankHint("why", "why-hint")); chips("why", "why", f); },
+    5() {
+      const f = textStep("question", "question", 8, 6, 4, () => {
+        const q = s.question.toLowerCase();
+        $("#q-hint").innerHTML = /\b(job|refer|referral|hiring|position|opening)\b/.test(q) ? '<div class="hint">This sounds like asking for a job. Try asking about their work instead. You can ask about openings later, once you\'ve talked.</div>' : "";
+      });
+      chips("q", "question", f);
+    },
+    6() {
+      const msg = $("#msg"), count = $("#count"), reset = $("#reset");
+      const paint = () => {
+        const n = msg.value.length;
+        count.textContent = n + " characters" + (n > NOTE_LIMIT ? " · too long for a LinkedIn connection note (300). Fine as a message or email." : " · fits a LinkedIn connection note");
+        count.classList.toggle("over", n > NOTE_LIMIT);
+        reset.hidden = !s.edited;
+      };
+      const refill = () => { if (!s.edited) { s.msg = draft(); msg.value = s.msg; } save(); paint(); };
+      $("#me").addEventListener("input", (e) => { s.me = e.target.value; refill(); });
+      $("#program").addEventListener("input", (e) => { s.program = e.target.value; refill(); });
+      msg.addEventListener("input", () => { s.msg = msg.value; s.edited = true; save(); paint(); });
+      reset.addEventListener("click", () => { s.edited = false; refill(); });
+      $("#copy").addEventListener("click", () => {
+        const fb = $("#copy-fallback");
+        navigator.clipboard.writeText(msg.value).then(() => { $("#copy-msg").textContent = "Copied. Paste it into LinkedIn or email."; })
+          .catch(() => { fb.value = msg.value; fb.hidden = false; fb.select(); $("#copy-msg").textContent = "Select the text below and copy it"; });
+      });
+      $("#back").addEventListener("click", () => go(5));
+      $("#again").addEventListener("click", () => { Object.assign(s, { person: "", why: "", msg: "", edited: false }); go(2); });
+      $("#restart").addEventListener("click", () => { const keep = { me: s.me, program: s.program }; Object.assign(s, BLANK, keep); go(1); });
+      paint();
+    }
+  };
+
+  if (s.step > 6) s.step = 1;
+  render();
+})();
+</script>
+
+</body></html>

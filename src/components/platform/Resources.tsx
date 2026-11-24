@@ -14,12 +14,20 @@ export function Resources() {
         title="Career resources"
         description="A starting point for stronger portfolios, thoughtful career decisions, and communities that support your work."
       />
+      <Link to="/find-your-alum" className="quick-link mb-6 block">
+        <Sparkles className="size-6 text-primary mb-4" />
+        <h3 className="text-xl">Find Your Alum</h3>
+        <p className="text-sm text-muted-foreground mt-2 max-w-2xl leading-relaxed">
+          Pick a role, search the Harvard directory and LinkedIn, choose one person, and draft a
+          thoughtful first message. Your progress stays in your browser.
+        </p>
+      </Link>
       <Link to="/practice" className="quick-link mb-10 block">
         <Sparkles className="size-6 text-primary mb-4" />
         <h3 className="text-xl">Practice before you reach out: First Hello</h3>
         <p className="text-sm text-muted-foreground mt-2 max-w-2xl leading-relaxed">
-          A short, low-stakes drill for your first networking conversation. Two or three
-          students, five or six minutes, fictional alumni profiles, and a shared countdown.
+          A short, low-stakes drill for your first networking conversation. Two or three students,
+          five or six minutes, fictional alumni profiles, and a shared countdown.
         </p>
       </Link>
       <div className="grid md:grid-cols-2 gap-x-10 gap-y-8">
