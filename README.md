@@ -4,6 +4,12 @@ An independent copy of the T522 team networking prototype, exported from Alejand
 
 This repository is not connected to the original Lovable project. Changes here do not update the team's published site. The original First Hello game, playbook, and other platform sections are retained.
 
+## Public team demo
+
+Open https://triptikhetan-max.github.io/harvard-ldit-connect/ . This public GitHub Pages demo uses fictional alumni only and needs no access code. The repository is public at https://github.com/triptikhetan-max/harvard-ldit-connect .
+
+Pushes to `main` run tests, type checking, and a static build through `.github/workflows/pages.yml`, then publish only `.output/public`. The server bundle, private alumni snapshot, and credentials are not deployed to Pages. Build locally with `GITHUB_PAGES=true bun run build`; the base path is `/harvard-ldit-connect/`, including images and Find Your Alum's embedded activity. Filtered query URLs are handled in the browser and excluded from prerendering so they cannot overwrite the default directory page.
+
 ## Run locally
 
 Requires Node.js 22.12+ and Bun.

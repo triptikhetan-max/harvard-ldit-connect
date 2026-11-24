@@ -4,6 +4,7 @@ import hgseLogo from "@/assets/hgse-logo.svg.asset.json";
 import { Button } from "@/components/ui/button";
 import { useDemo } from "./DemoContext";
 import { MainNavigation } from "./MainNavigation";
+import { publicAsset } from "@/lib/public-asset";
 export function Shell({ children }: { children: React.ReactNode }) {
   const { role, setRole } = useDemo();
   return (
@@ -22,7 +23,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
             aria-label="HGSE LDIT Connect home"
           >
             <img
-              src={hgseLogo.url}
+              src={publicAsset(hgseLogo.url)}
               alt="Harvard Graduate School of Education"
               className="hgse-logo"
               width={442}

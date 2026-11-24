@@ -14,6 +14,7 @@ import { Button } from "@/components/ui/button";
 import { useDemo } from "./DemoContext";
 import { AlumCard } from "./Shared";
 import { commonalities, directoryAlumni } from "@/lib/networking";
+import { publicAsset } from "@/lib/public-asset";
 const quickLinks = [
   { to: "/alumni", title: "Find your people", text: "Explore the alumni directory", icon: Users },
   {
@@ -56,7 +57,7 @@ export function Home() {
     <>
       <section className="home-hero">
         <img
-          src={campus.url}
+          src={publicAsset(campus.url)}
           width={1600}
           height={912}
           alt="Widener Library at Harvard University in Cambridge, Massachusetts"
