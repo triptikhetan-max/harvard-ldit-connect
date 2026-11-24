@@ -25,6 +25,14 @@ bun x tsc --noEmit
 bun run build
 ```
 
+## Shared project demo
+
+The directory now has a shared demo backed by private R2 storage. Visitors enter a temporary demo access code; every search request is checked on the server and returns a 25-record page. This is demonstration access, not HarvardKey identity verification. The collected snapshot is not bundled into public assets or Git.
+
+Required runtime secrets: `DEMO_ACCESS_TOKEN` for viewing and a separate `DEMO_ADMIN_TOKEN` for importing. Configure them through Sites environment variables, never source files. The owner uses `/demo-data` to load a validated snapshot. The viewing code cannot replace it. R2 binding `BUCKET` is declared in `.openai/hosting.json`.
+
+Build the app normally, then run `node scripts/package-sites.ts` before using the Sites source/version/deploy workflow. The packaging wrapper handles the protected demo endpoints ahead of Nitro. Rotating the viewing token revokes access on the next request.
+
 ## Demo data and configuration
 
 The Alumni Directory page supports a personal saved-file import. Imported names, degree details, professional headlines, and official profile links stay in the visitor's browser storage; files are not uploaded. The list is a dated snapshot, not an authenticated Harvard API connection or automatic refresh. Real directory exports must stay outside this repository and must never be bundled into a public deployment.

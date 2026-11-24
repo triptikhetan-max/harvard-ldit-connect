@@ -2,6 +2,8 @@
 
 Prepared November 24, 2026. Draft only; not submitted.
 
+Latest user direction: a temporary shared demo using a demo access code is approved while real HarvardKey registration remains pending. The demo must not claim Harvard identity verification. This interim exception does not change the intended HarvardKey-only production requirement.
+
 LDIT Connect is a T522 student networking project. Tripti requires shared alumni results inside the app, accessible only through HarvardKey. Email-only, ChatGPT login, public data, and browser-local snapshots do not meet this requirement.
 
 Application: https://ldit-connect-tripti.trilogy-1207.chatgpt.site
