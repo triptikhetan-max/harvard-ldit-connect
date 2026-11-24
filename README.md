@@ -1,29 +1,36 @@
-# Welcome to your Lovable project
+# LDIT Connect
 
-This project was built with [Lovable](https://lovable.dev).
+An independent copy of the T522 team networking prototype, exported from Alejandra's Lovable project on November 24, 2026, with Tripti's Find Your Alum activity added.
 
-## Build with Lovable
+This repository is not connected to the original Lovable project. Changes here do not update the team's published site. The original First Hello game, playbook, and other platform sections are retained.
 
-Open your project in the [Lovable editor](https://lovable.dev) and keep building.
+## Run locally
 
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: connect the project to GitHub and every change made in Lovable is committed straight to your repository.
-- **Full ownership**: this code is yours. Push to your repository and your changes sync back into Lovable, ready for your next prompt.
-
-## Development
-
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
+Requires Node.js 22.12+ and Bun.
 
 ```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
-npm run dev
+cd /Users/tripti/Projects/harvard-ldit-connect
+bun install --frozen-lockfile
+bun run dev --host 127.0.0.1 --port 5178
 ```
 
-## Built with
+Open http://127.0.0.1:5178/find-your-alum. The activity supports role selection, links to Harvard/LinkedIn search, a personalized message draft, copying, and browser-local progress. It does not send messages automatically. External directory access requires the user's own account.
 
-- TanStack Start
-- TypeScript
-- React
-- Tailwind CSS
+## Checks
+
+```sh
+cd /Users/tripti/Projects/harvard-ldit-connect
+bun run test
+bun x tsc --noEmit
+bun run build
+```
+
+## Demo data and configuration
+
+The platform uses fictional demo profiles and opportunities. Its linked-account/import features are prototypes. No production database or real directory integration has been configured for this copy. Local service configuration in `.env` is excluded from Git; do not upload credentials. A future deployment needs its own configuration and verification.
+
+The original Harvard photo attribution is retained on the home page. Original image assets are bundled under `public/images/` for portability. Find Your Alum's authored HTML is retained in `public/find-your-alum.html`.
+
+## Stack
+
+TanStack Start, React, TypeScript, Tailwind CSS, and Vitest.

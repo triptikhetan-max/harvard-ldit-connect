@@ -1,3 +1,7 @@
+## Independent export status — November 24, 2026
+
+This repository is an independent export of the original team Lovable project. Native Git sync has not been configured. The Lovable-generated warning below applies only if a future connection is explicitly configured; it is not evidence that this repository is currently connected. Preserve the original team's work and keep this copy's deployment status separate.
+
 <!-- LOVABLE:BEGIN -->
 > [!IMPORTANT]
 > This project is connected to [Lovable](https://lovable.dev). Avoid rewriting
