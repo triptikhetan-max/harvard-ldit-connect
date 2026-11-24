@@ -27,6 +27,10 @@ bun run build
 
 ## Demo data and configuration
 
+The Alumni Directory page supports a personal saved-file import. Imported names, degree details, professional headlines, and official profile links stay in the visitor's browser storage; files are not uploaded. The list is a dated snapshot, not an authenticated Harvard API connection or automatic refresh. Real directory exports must stay outside this repository and must never be bundled into a public deployment.
+
+Public app: https://ldit-connect-tripti.trilogy-1207.chatgpt.site
+
 The platform uses fictional demo profiles and opportunities. Its linked-account/import features are prototypes. No production database or real directory integration has been configured for this copy. Local service configuration in `.env` is excluded from Git; do not upload credentials. A future deployment needs its own configuration and verification.
 
 The original Harvard photo attribution is retained on the home page. Original image assets are bundled under `public/images/` for portability. Find Your Alum's authored HTML is retained in `public/activities/find-your-alum.html`.

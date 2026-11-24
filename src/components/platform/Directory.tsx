@@ -6,6 +6,7 @@ import { directoryAlumni, commonalities } from "@/lib/networking";
 import { useDemo } from "./DemoContext";
 import { PageTitle, Filter, AlumCard, Empty } from "./Shared";
 import { HarvardDirectoryLookup } from "./HarvardDirectoryLookup";
+import { PersonalAlumni } from "./PersonalAlumni";
 export function Directory({ pathway }: { pathway?: string | undefined }) {
   const d = useDemo();
   const navigate = useNavigate();
@@ -42,6 +43,7 @@ export function Directory({ pathway }: { pathway?: string | undefined }) {
         title="Alumni directory"
         description="Search real alumni through HarvardKey, or explore the fictional networking demo below."
       />
+      <PersonalAlumni />
       <HarvardDirectoryLookup />
       <h2 className="text-2xl mb-3">Explore demo profiles</h2>
       <p className="text-sm text-muted-foreground mb-5">

@@ -46,9 +46,9 @@ export function HarvardDirectoryLookup() {
         </Button>
       </div>
       <p className="text-sm text-muted-foreground mt-4 max-w-2xl">
-        Enter these filters on Harvard’s site after signing in. This app does not receive your
-        HarvardKey credentials or import directory profiles. Search terms stay in this page unless
-        you copy them.
+        Enter these filters on Harvard’s site after signing in. Harvard login does not send your
+        credentials or directory profiles to this app. You can import a saved file privately above.
+        Search terms stay in this page unless you copy them.
       </p>
     </section>
   );
