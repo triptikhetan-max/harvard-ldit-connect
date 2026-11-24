@@ -29,7 +29,7 @@ bun run build
 
 The platform uses fictional demo profiles and opportunities. Its linked-account/import features are prototypes. No production database or real directory integration has been configured for this copy. Local service configuration in `.env` is excluded from Git; do not upload credentials. A future deployment needs its own configuration and verification.
 
-The original Harvard photo attribution is retained on the home page. Original image assets are bundled under `public/images/` for portability. Find Your Alum's authored HTML is retained in `public/find-your-alum.html`.
+The original Harvard photo attribution is retained on the home page. Original image assets are bundled under `public/images/` for portability. Find Your Alum's authored HTML is retained in `public/activities/find-your-alum.html`.
 
 ## Stack
 

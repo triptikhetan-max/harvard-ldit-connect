@@ -13,7 +13,7 @@ export function FindYourAlum() {
       <section aria-label="Find Your Alum guided activity">
         <iframe
           title="Find Your Alum guided networking activity"
-          src="/find-your-alum.html"
+          src="/activities/find-your-alum.html"
           sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"
           allow="clipboard-write"
           className="practice-frame"

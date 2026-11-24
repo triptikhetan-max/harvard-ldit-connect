@@ -9,4 +9,7 @@ cpSync(new URL("server/", source), new URL("server/", output), { recursive: true
 renameSync(new URL("server/index.mjs", output), new URL("server/index.js", output));
 cpSync(new URL("public/", source), new URL("client/", output), { recursive: true });
 mkdirSync(new URL(".openai/", output), { recursive: true });
-cpSync(new URL("../.openai/hosting.json", import.meta.url), new URL(".openai/hosting.json", output));
+cpSync(
+  new URL("../.openai/hosting.json", import.meta.url),
+  new URL(".openai/hosting.json", output),
+);
