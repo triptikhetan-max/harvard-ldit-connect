@@ -7,7 +7,7 @@ export const Route = createFileRoute("/alumni/")({
   head: () =>
     pageHead(
       "Alumni directory",
-      "Find opt-in LDIT alumni by pathway, industry, cohort, location and shared interests.",
+      "Open the official Harvard alumni directory with HarvardKey, or explore fictional LDIT demo profiles.",
     ),
   component: Page,
 });

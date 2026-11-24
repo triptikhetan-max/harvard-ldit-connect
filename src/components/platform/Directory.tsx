@@ -5,6 +5,7 @@ import { pathways, openTypes } from "@/data/mockData";
 import { directoryAlumni, commonalities } from "@/lib/networking";
 import { useDemo } from "./DemoContext";
 import { PageTitle, Filter, AlumCard, Empty } from "./Shared";
+import { HarvardDirectoryLookup } from "./HarvardDirectoryLookup";
 export function Directory({ pathway }: { pathway?: string | undefined }) {
   const d = useDemo();
   const navigate = useNavigate();
@@ -39,12 +40,18 @@ export function Directory({ pathway }: { pathway?: string | undefined }) {
       <PageTitle
         eyebrow="YOUR COMMUNITY, YOUR CONNECTIONS"
         title="Alumni directory"
-        description="Different paths. Shared beginnings. Find someone whose story resonates with yours."
+        description="Search real alumni through HarvardKey, or explore the fictional networking demo below."
       />
+      <HarvardDirectoryLookup />
+      <h2 className="text-2xl mb-3">Explore demo profiles</h2>
+      <p className="text-sm text-muted-foreground mb-5">
+        These people and organizations are fictional. The filters below search only this demo; use
+        the Harvard directory above for real alumni.
+      </p>
       <div className="search-box">
         <Search className="size-5 text-muted-foreground" />
         <input
-          aria-label="Search alumni"
+          aria-label="Search demo profiles"
           placeholder="Search by name, role, company, or skill…"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
@@ -90,9 +97,7 @@ export function Directory({ pathway }: { pathway?: string | undefined }) {
         <Filter label="Open to" value={open} onChange={setOpen} options={openTypes} />
       </div>
       <div className="flex justify-between flex-wrap items-center gap-4 py-6">
-        <p className="text-sm text-muted-foreground">
-          {results.length} alumni · Listed with their permission
-        </p>
+        <p className="text-sm text-muted-foreground">{results.length} fictional demo profiles</p>
         <label className="text-sm flex gap-2 items-center">
           Sort by
           <select
