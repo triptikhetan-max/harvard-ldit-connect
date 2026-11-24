@@ -5,9 +5,6 @@ import { pathways, openTypes } from "@/data/mockData";
 import { directoryAlumni, commonalities } from "@/lib/networking";
 import { useDemo } from "./DemoContext";
 import { PageTitle, Filter, AlumCard, Empty } from "./Shared";
-import { HarvardDirectoryLookup } from "./HarvardDirectoryLookup";
-import { PersonalAlumni } from "./PersonalAlumni";
-import { SharedDemoAlumni } from "./SharedDemoAlumni";
 export function Directory({ pathway }: { pathway?: string | undefined }) {
   const d = useDemo();
   const navigate = useNavigate();
@@ -42,21 +39,8 @@ export function Directory({ pathway }: { pathway?: string | undefined }) {
       <PageTitle
         eyebrow="YOUR COMMUNITY, YOUR CONNECTIONS"
         title="Alumni directory"
-        description="Explore the shared alumni demo, or use Harvard’s official directory with your own HarvardKey."
+        description="Find a connection, explore their work, and start a conversation. These profiles are fictional examples for our class demo."
       />
-      <SharedDemoAlumni />
-      <details className="mb-10">
-        <summary className="cursor-pointer text-sm">Personal saved-file tools</summary>
-        <div className="mt-5">
-          <PersonalAlumni />
-        </div>
-      </details>
-      <HarvardDirectoryLookup />
-      <h2 className="text-2xl mb-3">Explore demo profiles</h2>
-      <p className="text-sm text-muted-foreground mb-5">
-        These people and organizations are fictional. The filters below search only this demo; use
-        the Harvard directory above for real alumni.
-      </p>
       <div className="search-box">
         <Search className="size-5 text-muted-foreground" />
         <input
@@ -66,45 +50,50 @@ export function Directory({ pathway }: { pathway?: string | undefined }) {
           onChange={(e) => setSearch(e.target.value)}
         />
       </div>
-      <div className="filter-row">
-        <SlidersHorizontal className="size-4 text-muted-foreground self-end mb-3 hidden lg:block" />
-        <Filter
-          label="Industry"
-          value={industry}
-          onChange={setIndustry}
-          options={[...new Set(all.map((a) => a.industry))]}
-        />
-        <label className="filter-label">
-          Pathway
-          <select
-            aria-label="Pathway"
-            value={pathway || ""}
-            onChange={(e) =>
-              navigate({ to: "/alumni", search: { pathway: e.target.value || undefined } })
-            }
-          >
-            <option value="">All pathways</option>
-            {pathways.map((p) => (
-              <option key={p.id} value={p.id}>
-                {p.short}
-              </option>
-            ))}
-          </select>
-        </label>
-        <Filter
-          label="Cohort"
-          value={cohort}
-          onChange={setCohort}
-          options={[...new Set(all.map((a) => String(a.cohort)))].sort().reverse()}
-        />
-        <Filter
-          label="Location"
-          value={location}
-          onChange={setLocation}
-          options={[...new Set(all.map((a) => a.location).filter(Boolean))]}
-        />
-        <Filter label="Open to" value={open} onChange={setOpen} options={openTypes} />
-      </div>
+      <details className="mt-4" open={Boolean(pathway) || undefined}>
+        <summary className="cursor-pointer text-sm text-primary py-2">
+          Filter by pathway, industry, location and more
+        </summary>
+        <div className="filter-row">
+          <SlidersHorizontal className="size-4 text-muted-foreground self-end mb-3 hidden lg:block" />
+          <Filter
+            label="Industry"
+            value={industry}
+            onChange={setIndustry}
+            options={[...new Set(all.map((a) => a.industry))]}
+          />
+          <label className="filter-label">
+            Pathway
+            <select
+              aria-label="Pathway"
+              value={pathway || ""}
+              onChange={(e) =>
+                navigate({ to: "/alumni", search: { pathway: e.target.value || undefined } })
+              }
+            >
+              <option value="">All pathways</option>
+              {pathways.map((p) => (
+                <option key={p.id} value={p.id}>
+                  {p.short}
+                </option>
+              ))}
+            </select>
+          </label>
+          <Filter
+            label="Cohort"
+            value={cohort}
+            onChange={setCohort}
+            options={[...new Set(all.map((a) => String(a.cohort)))].sort().reverse()}
+          />
+          <Filter
+            label="Location"
+            value={location}
+            onChange={setLocation}
+            options={[...new Set(all.map((a) => a.location).filter(Boolean))]}
+          />
+          <Filter label="Open to" value={open} onChange={setOpen} options={openTypes} />
+        </div>
+      </details>
       <div className="flex justify-between flex-wrap items-center gap-4 py-6">
         <p className="text-sm text-muted-foreground">{results.length} fictional demo profiles</p>
         <label className="text-sm flex gap-2 items-center">

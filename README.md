@@ -27,7 +27,9 @@ bun run build
 
 ## Shared project demo
 
-The directory now has a shared demo backed by private R2 storage. Visitors enter a temporary demo access code; every search request is checked on the server and returns a 25-record page. This is demonstration access, not HarvardKey identity verification. The collected snapshot is not bundled into public assets or Git.
+The public directory shows fictional profiles only. Code-entry, personal imports, and the shared real-alumni panel are hidden from the public demo. Find Your Alum and First Hello remain available. Navigation groups Jobs, Events, and Pathways under Explore; guides, First Hello, and Resources under Prepare.
+
+The previously configured real-alumni API remains protected in private R2 storage; requests still require the viewing secret. It is not HarvardKey identity verification. The collected snapshot is not bundled into public assets or Git.
 
 Required runtime secrets: `DEMO_ACCESS_TOKEN` for viewing and a separate `DEMO_ADMIN_TOKEN` for importing. Configure them through Sites environment variables, never source files. The owner uses `/demo-data` to load a validated snapshot. The viewing code cannot replace it. R2 binding `BUCKET` is declared in `.openai/hosting.json`.
 

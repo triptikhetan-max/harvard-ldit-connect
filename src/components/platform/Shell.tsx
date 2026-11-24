@@ -3,19 +3,7 @@ import { ArrowUpRight } from "lucide-react";
 import hgseLogo from "@/assets/hgse-logo.svg.asset.json";
 import { Button } from "@/components/ui/button";
 import { useDemo } from "./DemoContext";
-const links = [
-  ["/", "Home"],
-  ["/alumni", "Alumni Directory"],
-  ["/find-your-alum", "Find Your Alum"],
-  ["/jobs", "Jobs"],
-  ["/events", "Events"],
-  ["/guide", "Coffee Chat Guide"],
-  ["/playbook", "Networking Playbook"],
-  ["/practice", "First Hello"],
-  ["/pathways", "LDIT Pathways"],
-  ["/resources", "Resources"],
-  ["/profile", "My Profile"],
-] as const;
+import { MainNavigation } from "./MainNavigation";
 export function Shell({ children }: { children: React.ReactNode }) {
   const { role, setRole } = useDemo();
   return (
@@ -45,6 +33,12 @@ export function Shell({ children }: { children: React.ReactNode }) {
             </span>
           </Link>
           <div className="flex items-center gap-2">
+            <Link
+              to="/profile"
+              className="text-sm text-primary px-2 py-2 rounded focus-visible:outline-2"
+            >
+              My Profile
+            </Link>
             <span className="text-xs text-muted-foreground hidden sm:inline">Viewing as</span>
             <div className="segmented">
               {(["Student", "Alum"] as const).map((r) => (
@@ -60,19 +54,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
             </div>
           </div>
         </div>
-        <nav aria-label="Main navigation" className="page-width flex gap-6 overflow-x-auto">
-          {links.map(([to, label]) => (
-            <Link
-              key={to}
-              to={to}
-              activeOptions={{ exact: to === "/" }}
-              activeProps={{ className: "nav-link active" }}
-              className="nav-link"
-            >
-              {label}
-            </Link>
-          ))}
-        </nav>
+        <MainNavigation />
       </header>
       <main>{children}</main>
       <footer className="site-footer">
