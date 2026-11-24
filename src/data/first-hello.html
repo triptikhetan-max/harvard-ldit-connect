@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>First Hello · LDIT</title>
+<style>
+:root{--ink:oklch(0.22 0.02 30);--muted:oklch(0.48 0.02 40);--green:oklch(0.42 0.16 22);--paper:oklch(0.99 0.002 90);--line:oklch(0.86 0.02 70);--white:oklch(1 0 0);--blue:#e8eff8;--purple:#eee9f7;--peach:#f7e8de}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.55 "ITC Franklin Gothic","Franklin Gothic Book","Franklin Gothic Medium",Arial,sans-serif}
+button,input,select,textarea{font:inherit}
+button{border:0;border-radius:11px;padding:11px 16px;background:var(--green);color:white;font-weight:650;cursor:pointer}
+button:hover{filter:brightness(.94)}
+button:disabled{opacity:.4;cursor:not-allowed}
+button.secondary{background:#e8eddf;color:var(--ink)}
+button.ghost{background:transparent;color:var(--ink);border:1px solid #cbd5c7}
+button.small{font-size:12px;padding:7px 11px}
+button:focus-visible,summary:focus-visible{outline:3px solid #b89035;outline-offset:3px}
+input,textarea,select{width:100%;padding:11px;border:1px solid #c9d3c4;border-radius:9px;color:var(--ink);background:var(--white)}
+textarea{resize:vertical;min-height:85px}
+label{display:block;font-size:12px;font-weight:700;margin:12px 0 6px}
+h1,h2,h3,p{margin:0}
+h1,h2{font-family:"Adobe Garamond Pro",Garamond,Georgia,serif;font-weight:normal;letter-spacing:0;line-height:1.1}
+h1{font-size:clamp(40px,6vw,65px)}
+h2{font-size:32px}
+h3{font-size:16px}
+p{margin-top:10px}
+.muted{color:var(--muted)}
+.tiny{font-size:12px}
+.tag{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;font-weight:800;color:var(--muted);margin-bottom:10px}
+.pill{display:inline-block;border-radius:30px;background:#e7eddb;padding:4px 9px;font-size:11px;font-weight:700}
+.row{display:flex;gap:9px;align-items:center;flex-wrap:wrap}
+.between{justify-content:space-between}
+.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:20px}
+.box{border:1px solid var(--line);border-radius:8px;background:var(--white);padding:23px}
+.wrap{max-width:1240px;margin:auto;padding:28px}
+.top{position:sticky;top:0;z-index:10;background:#f7f5edf5;border-bottom:1px solid var(--line);backdrop-filter:blur(10px)}
+.top-inner{max-width:1240px;margin:auto;padding:13px 28px;display:flex;justify-content:space-between;align-items:center;gap:18px}
+.brand{font:27px "Adobe Garamond Pro",Garamond,Georgia,serif;letter-spacing:0}
+.brand span{color:#b65e43}
+.clock-area{display:flex;align-items:center;gap:17px;flex-wrap:wrap;justify-content:flex-end}
+.clock-label{font-size:10px;text-transform:uppercase;letter-spacing:1.3px;color:var(--muted)}
+.clock{font-size:29px;line-height:1.1;font-weight:700;font-variant-numeric:tabular-nums;min-width:81px}
+.clock.warn{color:#b34f31}
+.clock-controls{display:flex;gap:6px;align-items:center}
+.clock-meta{font-size:10px;color:var(--muted);margin-top:3px}
+.warning{max-width:1184px;margin:auto;font-size:12px;color:#a3452c;padding:0 0 6px}
+.warning:empty{display:none}
+.hero{display:grid;grid-template-columns:1.05fr 1fr;gap:55px;align-items:start;margin:24px 0}
+.hero-copy{padding:20px 0}
+.hero-copy>p{font-size:17px;color:var(--muted);max-width:490px}
+.roles-explain{display:grid;gap:13px;margin-top:25px}
+.roles-explain p{font-size:13px;margin:3px 0}
+.person-input{display:grid;grid-template-columns:1fr 160px;gap:8px;margin:10px 0}
+.toggle{display:flex;gap:6px;margin-top:16px}
+.toggle button{background:#eef0e5;color:var(--ink)}
+.toggle button.active{background:var(--green);color:white}
+.mini-stack{display:flex;gap:9px;margin-top:29px}
+.mini-stack span{border:1px solid #d2dacb;border-radius:12px;background:#eaf0df;padding:23px 12px;font:19px "Adobe Garamond Pro",Garamond,Georgia,serif;flex:1}
+.mini-stack span:nth-child(2){background:var(--blue);transform:rotate(3deg)}
+.mini-stack span:nth-child(3){background:var(--purple);transform:rotate(-3deg)}
+.notice{padding:14px 17px;border-radius:12px;background:#edf1e3;font-size:13px;margin:19px 0}
+.progress{display:flex;gap:8px;margin-bottom:25px}
+.progress span{flex:1;border-top:4px solid #d8dfce;padding-top:8px;font-size:12px;color:var(--muted)}
+.progress span.active{border-color:var(--green);color:var(--green);font-weight:750}
+.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:17px;margin-top:25px}
+.profile-card{background:#edf2e6;border:1px solid #cbd8c1;border-radius:8px;padding:23px;display:flex;flex-direction:column}
+.profile-card h2{font-size:30px;margin:8px 0}
+.profile-card .job{font-weight:700;font-size:13px}
+.profile-card>p{font-size:13px}
+.profile-card details{margin:15px 0}
+.profile-card button{margin-top:auto}
+.avatar{width:42px;height:42px;border-radius:50%;background:#d4e1bf;display:grid;place-items:center;font-family:"Adobe Garamond Pro",Garamond,Georgia,serif;font-size:23px}
+.public-copy{font-size:13px}
+.public-copy p{margin:10px 0;overflow-wrap:anywhere}
+.public-copy b{display:block;margin-top:13px}
+.public-copy p:first-child b{margin-top:0}
+summary{cursor:pointer;font-size:13px;font-weight:700}
+.layout{display:grid;grid-template-columns:285px minmax(0,1fr);gap:23px;align-items:start}
+.side{position:sticky;top:110px;background:#edf2e6;border:1px solid #ced8c7;border-radius:8px;padding:22px;max-height:calc(100vh - 135px);overflow:auto}
+.side h2{font-size:30px}
+.side .job{font-size:12px;font-weight:700;margin-top:9px}
+.side details{margin-top:17px}
+.rolebar{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:18px 0}
+.role{padding:12px 14px;background:#eef0e6;border-radius:11px;font-size:12px}
+.role b{display:block;font-size:14px;overflow-wrap:anywhere}
+.role.active{background:#dce9ca}
+.turn-steps{display:flex;gap:7px;margin:15px 0 22px}
+.turn-steps span{font-size:11px;border-radius:30px;padding:5px 10px;background:#eeeee5;color:var(--muted)}
+.turn-steps span.current{background:var(--green);color:white}
+.question-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:11px}
+.qcard{display:flex;flex-direction:column;text-align:left;align-items:flex-start;background:var(--blue);border:1px solid #c9d5e7;color:var(--ink);padding:19px 16px;min-height:230px;box-shadow:0 4px 0 #dfe5e9}
+.qcard.selected{border:2px solid #4b7199;padding:18px 15px}
+.letter{width:29px;height:29px;border-radius:50%;background:#d0dded;display:grid;place-items:center;font-weight:800;margin-bottom:12px}
+.qcard strong{font:21px "Adobe Garamond Pro",Garamond,Georgia,serif;line-height:1.15}
+.qcard p{font-size:13px;font-weight:450;line-height:1.5}
+.qcard .instruction{font-size:10px;color:var(--muted);margin-top:13px}
+.qcard .open-label{font-size:10px;font-weight:700;margin-top:auto;padding-top:15px;color:#456282}
+.reply{margin-top:23px;border-radius:8px;background:var(--purple);border:1px solid #d6cbe6;padding:25px}
+.reply blockquote{font:23px/1.5 "Adobe Garamond Pro",Garamond,Georgia,serif;letter-spacing:0;margin:15px 0;overflow-wrap:anywhere}
+.guide-step{border:1px solid var(--line);border-radius:8px;padding:23px;background:var(--white);margin-top:22px}
+.guide-step .quote{font:28px/1.3 "Adobe Garamond Pro",Garamond,Georgia,serif;margin:17px 0}
+.history{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.history button{background:#f8f8ef;color:var(--ink);border:1px solid #d0d8c6;font-size:11px;padding:6px 9px}
+.history button:disabled{opacity:.55}
+.passlog{font-size:11px;color:var(--muted);margin-top:15px}
+.reality-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:23px}
+.reality-choice{background:var(--peach);color:var(--ink);border:1px solid #e2c9b7;padding:25px 18px;text-align:left;min-height:135px;font:23px "Adobe Garamond Pro",Garamond,Georgia,serif}
+.reality-choice.selected{outline:2px solid #b16e44}
+.scenario{margin-top:24px;border:1px solid #dfc4b3;border-radius:8px;background:var(--peach);padding:28px}
+.scenario p{font:21px/1.6 "Adobe Garamond Pro",Garamond,Georgia,serif;white-space:pre-line}
+.reflect-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:17px;margin-top:23px}
+.reflect-grid.two{grid-template-columns:1fr 1fr}
+.reflect-card{padding:23px;background:#fffefa;border:1px solid var(--line);border-radius:8px;min-width:0}
+.reflect-card textarea,.reflect-card input{font-size:13px}
+.reflect-card h2{font-size:27px}
+.caveat{font-size:11px;color:var(--muted);border-top:1px solid var(--line);padding-top:17px;margin-top:35px}
+.banner{padding:18px 22px;background:#f0e7d8;border:1px solid #e1cfb1;border-radius:14px;margin-bottom:22px}
+.pause-note{background:#f5ecd8;font-size:12px;text-align:center;padding:7px;color:#75551b}
+.intro-text{max-width:780px}
+.tagline{color:var(--muted);font-size:13px;margin-top:7px}
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);border-radius:12px;background:var(--ink);color:white;padding:12px 20px;font-size:13px;z-index:30;max-width:90vw}
+dialog{border:1px solid var(--line);border-radius:8px;background:var(--white);color:var(--ink);max-width:540px;width:90vw;padding:28px}
+dialog::backdrop{background:#102d2766}
+.modal-guide{font:22px/1.5 "Adobe Garamond Pro",Garamond,Georgia,serif;margin:20px 0}
+.wide{width:100%}
+@media(max-width:1000px){
+.gallery{grid-template-columns:repeat(2,1fr)}
+.layout{grid-template-columns:235px minmax(0,1fr)}
+.question-grid{grid-template-columns:1fr}
+.qcard{min-height:0}
+.qcard .open-label{margin-top:0}
+.reflect-grid,.reflect-grid.two{grid-template-columns:1fr}
+}
+@media(max-width:720px){
+.wrap{padding:21px 16px}
+.top-inner{padding:10px 16px;gap:10px;align-items:flex-start}
+.brand{font-size:23px}
+.clock-area{gap:9px}
+.clock{font-size:25px}
+.clock-controls button{padding:6px 8px;font-size:10px}
+.clock-controls{gap:4px}
+.clock-meta{display:none}
+.hero{grid-template-columns:1fr;gap:24px;margin-top:4px}
+.hero-copy{padding:5px 0}
+.hero-copy>p{font-size:15px}
+.mini-stack{display:none}
+.gallery{grid-template-columns:1fr}
+.layout{grid-template-columns:1fr}
+.side{position:static;max-height:none}
+.rolebar{gap:5px}
+.role{padding:9px;font-size:10px}
+.role b{font-size:12px}
+.reality-grid{grid-template-columns:1fr}
+.reality-choice{min-height:85px}
+.person-input{grid-template-columns:1fr 135px}
+.warning{padding:0 16px 6px}
+.progress span{font-size:10px}
+.reply blockquote{font-size:21px}
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="top-inner">
+    <div>
+      <div class="brand">First <span>Hello.</span></div>
+      <span class="tiny muted">LDIT · Student practice</span>
+    </div>
+    <div class="clock-area">
+      <div>
+        <div id="clockLabel" class="clock-label">Core countdown</div>
+        <div id="clock" class="clock" role="timer" aria-live="off">5:00</div>
+        <div id="clockMeta" class="clock-meta">7-minute maximum · paused time excluded</div>
+      </div>
+      <div class="clock-controls">
+        <button id="clockToggle" class="small" onclick="timerToggle()">Start</button>
+        <button id="clockRestart" class="small ghost" onclick="requestReset('timer')" disabled>Restart timer</button>
+      </div>
+    </div>
+  </div>
+  <div id="warning" class="warning" role="status" aria-live="polite"></div>
+</header>
+<div id="pauseNote" class="pause-note" hidden>Timer paused. Resume when everyone is ready.</div>
+<main id="app" class="wrap"></main>
+<div id="toast" class="toast" role="status" hidden></div>
+<dialog id="modal"><div id="modalContent"></div></dialog>
+
+<script>
+const DATA=__FIRST_HELLO_DATA__;
+
+const $=id=>document.getElementById(id);
+const esc=t=>String(t??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+let S=fresh();
+let running=false,lastTick=0,toastId;
+
+function fresh(){
+ return {
+  stage:"setup",
+  players:[{name:"",role:"Speaker"},{name:"",role:"Reader"}],
+  order:[],coreLimit:300,coreSpent:0,realitySpent:0,totalSpent:0,
+  phase:"core",extended:false,profile:null,turn:0,step:"ask",
+  letter:null,revealed:[],passed:[],reality:null,notes:[]
+ };
+}
+function person(i){return S.players[i].name.trim()||"Player "+(i+1)}
+function roleIndices(){
+ const n=S.players.length;
+ return {
+  speaker:S.order[S.turn%n],
+  reader:S.order[(S.turn+1)%n],
+  coach:S.order[(S.turn+(n===2?1:2))%n]
+ };
+}
+function remaining(){
+ if(S.phase==="core")return Math.max(0,S.coreLimit-S.coreSpent);
+ if(S.phase==="reality")return Math.max(0,Math.min(60-S.realitySpent,420-S.totalSpent));
+ return 0;
+}
+function time(t){
+ t=Math.ceil(Math.max(0,t));
+ return Math.floor(t/60)+":"+String(t%60).padStart(2,"0");
+}
+function refreshClock(){
+ const left=S.stage==="setup"?(S.players.length===2?300:360):remaining();
+ $("clock").textContent=time(left);
+ $("clock").classList.toggle("warn",S.stage!=="setup"&&left<=60&&left>0);
+ $("clockLabel").textContent=S.phase==="reality"?"Reality countdown":S.phase==="core"?"Core countdown":"Timed play complete";
+ $("clockToggle").textContent=running?"Pause":
+  S.stage==="setup"||S.coreSpent===0&&S.phase==="core"?"Start":
+  S.phase==="core"||S.phase==="reality"?"Resume":"Ended";
+ $("clockToggle").disabled=!["core","reality"].includes(S.phase);
+ $("clockRestart").disabled=S.stage==="setup";
+ $("clockMeta").textContent="Active time "+time(S.totalSpent)+" / 7:00 maximum";
+ $("pauseNote").hidden=running||S.stage==="setup"||!["core","reality"].includes(S.phase);
+ $("warning").textContent=S.stage!=="setup"&&left<=60&&left>0?
+  S.phase==="reality"?"Final minute: discuss the scenario, then close.":
+  "One minute left: move toward your exit slips.":"";
+}
+function pulse(){
+ if(!running)return;
+ const now=performance.now(),dt=Math.max(0,(now-lastTick)/1000);
+ lastTick=now;
+ const used=Math.min(dt,remaining());
+ S.totalSpent+=used;
+ if(S.phase==="core")S.coreSpent+=used;
+ else if(S.phase==="reality")S.realitySpent+=used;
+ if(remaining()<=.001||S.totalSpent>=420-.001){
+  running=false;
+  S.phase=S.phase==="core"?"coreDone":"final";
+  S.stage="closing";
+  closeModal();
+  render();
+  notify(S.phase==="coreDone"?
+   "Core time is up. Reflect now, or use one optional Reality minute.":
+   "Timed play has ended. Your reflection slips remain available.");
+ }
+ refreshClock();
+}
+setInterval(pulse,200);
+function runClock(){
+ if(!["core","reality"].includes(S.phase))return;
+ lastTick=performance.now();running=true;refreshClock();
+}
+function stopClock(){pulse();running=false;refreshClock()}
+function timerToggle(){
+ if(S.stage==="setup"){startGame();return}
+ if(running)stopClock();else runClock();
+}
+function notify(t){
+ $("toast").textContent=t;$("toast").hidden=false;
+ clearTimeout(toastId);
+ toastId=setTimeout(()=>$("toast").hidden=true,4500);
+}
+function up(){window.scrollTo({top:0,behavior:"smooth"})}
+function selectCount(n){
+ if(S.stage!=="setup")return;
+ while(S.players.length<n)S.players.push({name:"",role:"Coach"});
+ S.players=S.players.slice(0,n);
+ S.players.forEach((p,i)=>p.role=["Speaker","Reader","Coach"][i]);
+ render();
+}
+function assignRole(i,value){
+ const old=S.players[i].role,j=S.players.findIndex(p=>p.role===value);
+ if(j!==i&&j>=0)S.players[j].role=old;
+ S.players[i].role=value;render();
+}
+function startGame(){
+ if(S.stage!=="setup")return;
+ S.coreLimit=S.players.length===2?300:360;
+ S.order=["Speaker","Reader","Coach"].slice(0,S.players.length)
+  .map(r=>S.players.findIndex(p=>p.role===r));
+ S.notes=S.players.map(()=>({
+  curiosity:"",detail:"",
+  invitation:"Hi [name], your work on [detail] connects with my interest in [topic].",
+  ask:"",next:""
+ }));
+ S.stage="profiles";render();runClock();up();
+}
+function progress(){
+ return `<div class="progress">${
+  [["profiles","Choose an alum"],["turn","Practice together"],["reality","Optional Reality"],["closing","Your next hello"]]
+  .map(([v,t])=>`<span class="${S.stage===v?"active":""}">${t}</span>`).join("")
+ }</div>`;
+}
+function caveat(){
+ return `<footer class="caveat"><b>All alumni and replies are fictional.</b> ${esc(DATA.caveat)}<br>
+ Anyone may pass. No personal disclosure is required. One shared screen: play together in person or on a call. Separate devices do not sync.</footer>`;
+}
+function publicCopy(p,includeMeaning=true){
+ return `<div class="public-copy">${
+  [["What my job means",includeMeaning?p.plain:null],["How I got here",p.path],["What I actually do",p.day],["A current project",p.project],["What I am curious about",p.curious]]
+  .filter(x=>x[1]).map(([l,t])=>`<p><b>${l}</b>${esc(t)}</p>`).join("")
+ }</div>`;
+}
+function setup(){
+ return `<div class="hero">
+ <section class="hero-copy">
+  <div class="tag">A little curiosity goes a long way</div>
+  <h1>Practice your<br><em>first hello.</em></h1>
+  <p>Notice a profile detail, ask a specific question, listen to a reply, and think of a follow-up.</p>
+  <div class="roles-explain">
+   <div><b>Speaker</b><p>Use a question stem and a profile detail; say your follow-up aloud.</p></div>
+   <div><b>Reader</b><p>Read only the matching fictional reply, exactly as written.</p></div>
+   <div><b>Coach</b><p>Give one short, specific observation or suggestion—not a score.</p></div>
+  </div>
+  <div class="mini-stack" aria-hidden="true"><span>Meet a person</span><span>Ask with curiosity</span><span>Listen closely</span></div>
+ </section>
+ <section class="box">
+  <div class="tag">Set your table</div><h2>Who’s playing?</h2>
+  <div class="toggle" aria-label="Number of players">
+   <button class="${S.players.length===2?"active":""}" onclick="selectCount(2)">2 students · 5 minutes</button>
+   <button class="${S.players.length===3?"active":""}" onclick="selectCount(3)">3 students · 6 minutes</button>
+  </div>
+  <p class="tiny muted">Assign starting roles. With two students, the Reader also coaches. Everyone gets a turn as Speaker.</p>
+  ${S.players.map((p,i)=>`<div class="person-input">
+   <input aria-label="Player ${i+1} name" maxlength="30" value="${esc(p.name)}" placeholder="Player ${i+1} name or nickname" oninput="S.players[${i}].name=this.value">
+   <select aria-label="Player ${i+1} starting role" onchange="assignRole(${i},this.value)">
+   ${["Speaker","Reader","Coach"].slice(0,S.players.length).map(r=>`<option ${p.role===r?"selected":""}>${r}</option>`).join("")}
+   </select>
+  </div>`).join("")}
+  <div class="notice"><b>Anyone may pass.</b> No personal disclosure is required. The core countdown begins when you start. You may add one Reality minute, up to seven minutes total.</div>
+  <button class="wide" onclick="startGame()">We’re ready · start the countdown →</button>
+  <p class="tiny muted">One shared screen. Names are optional. Reflections remain in this open game; copy them before leaving.</p>
+ </section></div>`;
+}
+function profilesView(){
+ const r=roleIndices();
+ return progress()+`
+ <div class="intro-text">
+  <div class="tag">01 · Choose one person</div>
+  <h2>${esc(person(r.speaker))}, whose experience interests you?</h2>
+  <p class="muted">Choose one profile for the whole game. Read its public information together and notice a detail worth asking about.</p>
+ </div>
+ <div class="gallery">${DATA.profiles.map((p,i)=>`
+  <article class="profile-card">
+   <div class="row between"><div class="avatar">${esc(p.name[0])}</div><span class="pill">Fictional alum · ${i+1}</span></div>
+   <h2>${p.name}</h2><div class="job">${esc(p.role)}</div><p>${esc(p.plain)}</p>
+   <details><summary>Read the rest of the profile</summary>${publicCopy(p,false)}</details>
+   <button onclick="chooseProfile(${i})">Choose ${p.name} →</button>
+  </article>`).join("")}</div>`;
+}
+function chooseProfile(i){
+ if(S.profile!==null||S.phase!=="core")return;
+ S.profile=i;S.stage="turn";S.step="ask";render();up();
+}
+function sourceGuide(){
+ openModal(`<h2>Outside the script?</h2>
+ <div class="modal-guide">“${esc(DATA.guide)}”</div>
+ <p class="tiny muted">No additional alum reply is generated. Your follow-up is a question to practice, not one the game answers.</p>
+ <div class="actions"><button onclick="closeModal()">Back to our conversation</button></div>`);
+}
+function side(){
+ const p=DATA.profiles[S.profile];
+ return `<aside class="side">
+ <div class="tag">Your selected alum</div><h2>${p.name}</h2>
+ <div class="job">${esc(p.role)}</div><p class="tiny">${esc(p.plain)}</p>
+ <details><summary>Public profile</summary>${publicCopy(p,false)}</details>
+ <div class="tag" style="margin-top:23px">Revealed replies</div>
+ ${S.revealed.length?`<div class="history">${S.revealed.map(l=>`
+ <button ${["core","reality"].includes(S.phase)?"":"disabled"} onclick="revisit('${l}')">${p.name} · ${l}</button>`).join("")}</div>`:
+ `<p class="tiny muted">Replies stay hidden until you choose a question.</p>`}
+ <p class="tiny muted" style="margin-top:18px">Profile locked for this game. Restart the game to choose someone else.</p>
+ <div class="actions"><button class="small ghost" onclick="requestReset('game')">New game</button></div>
+ </aside>`;
+}
+function roleBar(){
+ const r=roleIndices();
+ return `<div class="rolebar">
+ <div class="role active">Speaker<b>${esc(person(r.speaker))}</b></div>
+ <div class="role">${S.players.length===2?"Reader + Coach":"Reader"}<b>${esc(person(r.reader))}</b></div>
+ <div class="role">${S.players.length===2?"Shared goal":"Coach"}<b>${S.players.length===2?"A thoughtful question":esc(person(r.coach))}</b></div>
+ </div>`;
+}
+function questions(){
+ return `<div class="question-grid">${DATA.questions.map(q=>`
+ <button class="qcard ${S.letter===q.letter?"selected":""}" aria-pressed="${S.letter===q.letter}" onclick="chooseQuestion('${q.letter}')">
+ <span class="letter">${q.letter}</span><strong>${q.title}</strong>
+ <p>“${esc(q.stem)}”</p>
+ <div class="instruction">${esc(q.instruction)}</div>
+ <div class="open-label">${S.revealed.includes(q.letter)?"↺ Revisit this reply":"↗ Reveal matching reply"}</div>
+ </button>`).join("")}</div>`;
+}
+function reply(){
+ const p=DATA.profiles[S.profile],q=DATA.questions.find(x=>x.letter===S.letter);
+ const text=p.replies.find(x=>x[0]===S.letter)[1];
+ return `<section class="reply" aria-live="polite">
+ <div class="tag">Fictional reply · no generated answers</div>
+ <h3>${p.name} Reply Card ${S.profile+1} · ${q.letter} — ${q.title}</h3>
+ <blockquote>“${esc(text)}”</blockquote>
+ <p class="tiny">${esc(person(roleIndices().reader))}, read this answer exactly as written.</p>
+ </section>`;
+}
+function turnView(){
+ const r=roleIndices();let guide="";
+ if(S.step==="read")guide=`
+ <h3>Reader · read the revealed answer</h3>
+ <p class="tiny muted">You can revisit this reply or ask another of the remaining question cards before moving on.</p>
+ <div class="actions"><button onclick="setStep('follow')">Reply read · think of a follow-up →</button></div>`;
+ if(S.step==="follow")guide=`
+ <div class="tag">Speaker · respond to what you heard</div>
+ <div class="quote">“That makes me curious about…”</div>
+ <p>Say a possible follow-up aloud. The game does not answer it.</p>
+ <div class="actions"><button onclick="setStep('coach')">Follow-up shared →</button></div>`;
+ if(S.step==="coach")guide=`
+ <h3>${esc(person(r.coach))}, offer one observation</h3>
+ <p>Give one short, specific observation or suggestion—not a score.</p>
+ <div class="actions"><button onclick="nextTurn(false)">${S.turn+1<S.players.length?"Rotate roles · next Speaker":"Everyone had a turn · reflect"} →</button></div>`;
+ return progress()+`<div class="layout">${side()}<section>
+ <div class="row between"><span class="tag">Turn ${S.turn+1} of ${S.players.length}</span><span class="pill">Everyone may pass</span></div>
+ <h2>Follow the curiosity.</h2>${roleBar()}
+ <div class="turn-steps">${[["ask","Ask"],["read","Read"],["follow","Follow up"],["coach","Coach"]].map(([v,t])=>`<span class="${S.step===v?"current":""}">${t}</span>`).join("")}</div>
+ <p class="tagline">Speaker: use the stem and a profile detail to ask aloud. Click a card when you’re ready to reveal its matching reply.</p>
+ <div style="margin-top:18px">${questions()}</div>
+ ${S.letter?reply():""}
+ ${guide?`<div class="guide-step">${guide}</div>`:""}
+ <div class="actions">
+  <button class="small ghost" onclick="sourceGuide()">My question is outside the script</button>
+  <button class="small ghost" onclick="nextTurn(true)">Pass this turn</button>
+  <button class="small secondary" onclick="goClosing()">Go to exit slips</button>
+ </div>
+ <p class="tiny muted" style="margin-top:15px">Repeat letters on later turns if useful. Other answers stay hidden until selected.</p>
+ ${S.passed.length?`<div class="passlog">Passed turns: ${S.passed.map(i=>esc(person(i))).join(", ")}</div>`:""}
+ <details style="margin-top:22px">
+  <summary>Optional Reality cards · one extra minute</summary>
+  <p class="tiny muted">A separate discussion using a scenario card. Starting it ends the core conversation and starts a single 60-second extension.</p>
+  <div class="actions"><button class="small secondary" onclick="beginReality()">Start the Reality minute</button></div>
+ </details>
+ </section></div>`;
+}
+function chooseQuestion(l){
+ if(S.stage!=="turn"||S.phase!=="core")return;
+ if(!S.revealed.includes(l))S.revealed.push(l);
+ S.letter=l;S.step="read";render();
+}
+function revisit(l){
+ if(!S.revealed.includes(l)||!["core","reality"].includes(S.phase))return;
+ const p=DATA.profiles[S.profile],q=DATA.questions.find(x=>x.letter===l);
+ openModal(`<div class="tag">Previously revealed</div>
+ <h2>${p.name} · ${l} — ${q.title}</h2>
+ <div class="modal-guide">“${esc(p.replies.find(x=>x[0]===l)[1])}”</div>
+ <button onclick="closeModal()">Close reply</button>`);
+}
+function setStep(step){if(S.phase!=="core")return;S.step=step;render()}
+function nextTurn(pass){
+ if(S.stage!=="turn"||S.phase!=="core")return;
+ if(pass)S.passed.push(roleIndices().speaker);
+ S.turn++;S.letter=null;S.step="ask";
+ if(S.turn>=S.players.length)S.stage="closing";
+ render();up();
+}
+function goClosing(){S.stage="closing";render();up()}
+function beginReality(){
+ pulse();
+ if(S.extended||S.phase==="final"||S.totalSpent>=420)return;
+ S.extended=true;S.realitySpent=0;S.phase="reality";
+ S.stage="reality";S.reality=null;closeModal();render();runClock();up();
+}
+function pickReality(i){if(S.phase!=="reality")return;S.reality=i;render()}
+function realityView(){
+ return progress()+`
+ <div class="intro-text"><div class="tag">Optional · one minute total</div>
+ <h2>A relationship has two sides.</h2>
+ <p class="muted">Choose a scenario and discuss it aloud. These are Reality cards, separate from the A/B/C questions. Switching cards does not restart the minute.</p></div>
+ <div class="reality-grid">${DATA.realities.map((x,i)=>`
+ <button class="reality-choice ${S.reality===i?"selected":""}" onclick="pickReality(${i})">${x.title}</button>`).join("")}</div>
+ ${S.reality!==null?`<section class="scenario">
+ <div class="tag">Scenario and discussion instructions</div>
+ <h2>${DATA.realities[S.reality].title}</h2><p>${esc(DATA.realities[S.reality].text)}</p>
+ <div class="tiny muted" style="margin-top:17px">Scenario only. No additional alumni reply is revealed or generated.</div></section>`:""}
+ <div class="actions">
+ <button onclick="finishGame()">End extension · exit slips →</button>
+ <button class="ghost" onclick="sourceGuide()">Outside-the-script guidance</button>
+ </div>`;
+}
+function closingView(){
+ const ended=!["core","reality"].includes(S.phase);
+ return progress()+`
+ ${ended?`<div class="banner"><b>${S.phase==="coreDone"?"Core time is up.":"Timed play has ended."}</b> Your reflection slips remain available. ${S.phase==="coreDone"&&!S.extended?"You may use one optional Reality minute.":""}</div>`:""}
+ <div class="intro-text"><div class="tag">My Next First Hello</div>
+ <h2>What will you carry forward?</h2>
+ <p class="muted">Let each player reflect in their own words. Sharing is optional.</p></div>
+ <div class="reflect-grid ${S.players.length===2?"two":""}">
+ ${S.notes.map((n,i)=>`<section class="reflect-card">
+ <span class="pill">Player ${i+1}</span><h2 style="margin-top:12px">${esc(person(i))}</h2>
+ <label for="curiosity${i}">I want to understand</label>
+ <textarea id="curiosity${i}" maxlength="1500" oninput="S.notes[${i}].curiosity=this.value">${esc(n.curiosity)}</textarea>
+ <label for="detail${i}">A detail that caught my attention</label>
+ <textarea id="detail${i}" maxlength="1500" oninput="S.notes[${i}].detail=this.value">${esc(n.detail)}</textarea>
+ <label for="invitation${i}">My invitation</label>
+ <textarea id="invitation${i}" maxlength="2000" oninput="S.notes[${i}].invitation=this.value">${esc(n.invitation)}</textarea>
+ <label for="ask${i}">Would you be open to</label>
+ <input id="ask${i}" maxlength="800" value="${esc(n.ask)}" oninput="S.notes[${i}].ask=this.value">
+ <label for="next${i}">One next step I choose</label>
+ <textarea id="next${i}" maxlength="1500" oninput="S.notes[${i}].next=this.value">${esc(n.next)}</textarea>
+ </section>`).join("")}</div>
+ <div class="notice">${esc(DATA.reminder)}</div>
+ <div class="actions">
+ ${!S.extended&&S.phase!=="final"?'<button class="secondary" onclick="beginReality()">Use one optional Reality minute</button>':""}
+ ${!ended?'<button onclick="finishGame()">Finish game</button>':""}
+ <button class="ghost" onclick="copyReflections()">Copy reflection slips</button>
+ <button class="ghost" onclick="requestReset('game')">New game</button>
+ </div><div id="copyFallback"></div>
+ ${S.profile!==null?`<details style="margin-top:24px"><summary>Revisit opened replies from ${DATA.profiles[S.profile].name}</summary>
+ <div class="history">${S.revealed.map(l=>`<button ${ended?"disabled":""} onclick="revisit('${l}')">${DATA.profiles[S.profile].name} · ${l}</button>`).join("")||'<p class="tiny muted">No replies were opened.</p>'}</div>
+ <p class="tiny muted">Reply cards close when timed play ends.</p></details>`:""}`;
+}
+function finishGame(){
+ pulse();running=false;S.phase="final";S.stage="closing";
+ closeModal();render();up();
+}
+function openModal(html){
+ $("modalContent").innerHTML=html;
+ if(!$("modal").open)$("modal").showModal();
+}
+function closeModal(){if($("modal").open)$("modal").close()}
+function requestReset(kind){
+ const text=kind==="game"?
+ "Start a new game? This clears the selected profile, revealed replies, and reflection slips.":
+ "Restart the countdown as a new timed session? Your selected profile, revealed replies, and reflection slips stay. Roles return to the first Speaker.";
+ openModal(`<h2>${kind==="game"?"A new table?":"Restart the timer?"}</h2><p>${text}</p>
+ <div class="actions">
+ <button onclick="doReset('${kind}')">${kind==="game"?"New game":"Restart countdown"}</button>
+ <button class="ghost" onclick="closeModal()">Cancel</button></div>`);
+}
+function doReset(kind){
+ running=false;closeModal();
+ if(kind==="game")S=fresh();
+ else{
+  S.coreSpent=0;S.realitySpent=0;S.totalSpent=0;S.phase="core";
+  S.extended=false;S.turn=0;S.step="ask";S.letter=null;
+  S.passed=[];S.reality=null;S.stage=S.profile===null?"profiles":"turn";
+ }
+ render();up();
+}
+async function copyReflections(){
+ const text=[
+  "FIRST HELLO · Reflection slips","",
+  ...S.notes.flatMap((n,i)=>[
+   person(i),
+   "I want to understand: "+n.curiosity,
+   "A detail that caught my attention: "+n.detail,
+   "My invitation: "+n.invitation,
+   "Would you be open to "+n.ask+"?",
+   "One next step I choose: "+n.next,""
+  ]),DATA.reminder
+ ].join("\n");
+ try{
+  if(!navigator.clipboard)throw Error();
+  await navigator.clipboard.writeText(text);
+  notify("Reflection slips copied.");
+ }catch(e){
+  $("copyFallback").innerHTML=`<label for="manualCopy">Select and copy your reflection slips</label><textarea id="manualCopy" style="min-height:220px" readonly>${esc(text)}</textarea>`;
+  $("manualCopy").focus();$("manualCopy").select();
+  notify("Your notes are selected for copying.");
+ }
+}
+function render(){
+ const views={setup,profiles:profilesView,turn:turnView,reality:realityView,closing:closingView};
+ $("app").innerHTML=views[S.stage]()+caveat();refreshClock();
+}
+render();
+</script>
+</body>
+</html>
