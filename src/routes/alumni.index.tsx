@@ -7,7 +7,7 @@ export const Route = createFileRoute("/alumni/")({
   head: () =>
     pageHead(
       "Alumni directory",
-      "Open the official Harvard alumni directory with HarvardKey, or explore fictional LDIT demo profiles.",
+      "Search the shared HGSE alumni demo with a demo access code, or open Harvard’s official directory.",
     ),
   component: Page,
 });

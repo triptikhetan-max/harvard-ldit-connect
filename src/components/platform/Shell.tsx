@@ -84,9 +84,9 @@ export function Shell({ children }: { children: React.ReactNode }) {
             </p>
           </div>
           <div className="text-sm text-muted-foreground">
-            <p>Sample data for demo purposes</p>
+            <p>Class project prototype</p>
             <p className="mt-2">
-              Fictional people, organizations & opportunities · Unofficial HGSE concept
+              Demo profiles and opportunities are labeled · Unofficial HGSE concept
             </p>
           </div>
           <Link to="/guide" className="text-sm flex items-center gap-2 text-primary">
